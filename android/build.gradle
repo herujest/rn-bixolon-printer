@@ -19,17 +19,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
 android {
-    compileSdkVersion safeExtGet('RnBixolonPrinter_compileSdkVersion', 23)
+    compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion safeExtGet('RnBixolonPrinter_minSdkVersion', 16)
-        targetSdkVersion safeExtGet('RnBixolonPrinter_targetSdkVersion', 22)
+        minSdkVersion 16
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
     }
@@ -75,6 +71,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0'
-    
+
     implementation project(path: ':bixolon_pdf')
 }
