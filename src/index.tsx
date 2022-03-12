@@ -20,3 +20,7 @@ const RnBixolonPrinter = NativeModules.RnBixolonPrinter
 export function multiply(a: number, b: number): Promise<number> {
   return RnBixolonPrinter.multiply(a, b);
 }
+
+export function isBixolonPrinter(name: string): Promise<boolean> {
+  return RnBixolonPrinter.getProductName(name);
+}

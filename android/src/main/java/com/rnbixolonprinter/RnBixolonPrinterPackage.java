@@ -6,6 +6,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.rnbixolonprinter.PrinterControl.RNBixolonPrinterModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ public class RnBixolonPrinterPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new RnBixolonPrinterModule(reactContext));
+        modules.add(new RNBixolonPrinterModule(reactContext));
         return modules;
     }
 

@@ -1,4 +1,6 @@
 buildscript {
+    ext.kotlin_version = '1.4.20'
+
     if (project == rootProject) {
         repositories {
             google()
@@ -7,25 +9,29 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.3'
+            classpath('com.android.tools.build:gradle:4.0.1')
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         }
     }
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 android {
-    compileSdkVersion safeExtGet('RnBixolonPrinter_compileSdkVersion', 29)
+    compileSdkVersion safeExtGet('RnBixolonPrinter_compileSdkVersion', 23)
+    buildToolsVersion "23.0.1"
+
     defaultConfig {
         minSdkVersion safeExtGet('RnBixolonPrinter_minSdkVersion', 16)
-        targetSdkVersion safeExtGet('RnBixolonPrinter_targetSdkVersion', 29)
+        targetSdkVersion safeExtGet('RnBixolonPrinter_targetSdkVersion', 22)
         versionCode 1
         versionName "1.0"
-
     }
 
     buildTypes {
@@ -36,9 +42,17 @@ android {
     lintOptions {
         disable 'GradleCompatible'
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/REFACTORINGS.XML'
+        exclude 'META-INF/atomicfu.kotlin_module'
     }
 }
 
@@ -54,6 +68,13 @@ repositories {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0'
+    
+    implementation project(path: ':bixolon_pdf')
 }
