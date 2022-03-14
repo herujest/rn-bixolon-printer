@@ -30,5 +30,7 @@ public class RnBixolonPrinterModule extends ReactContextBaseJavaModule {
         promise.resolve(a * b);
     }
 
+
+
     public static native int nativeMultiply(int a, int b);
 }
